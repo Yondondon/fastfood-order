@@ -1,56 +1,38 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import { useAppSelector } from './utils/hooks';
+import { 
+  foodCategoryListSelect,
+  activeCategorySelect,
+} from './store/reducers/foodCategoryReducer';
+import { FoodCategory } from './features/FoodCategory/FoodCategory';
 
-function App() {
+const App = () => {
+  const foodCategoryList = useAppSelector(foodCategoryListSelect);
+  const activeCategory = useAppSelector(activeCategorySelect);
+  
+  const renderFoodCategories = () => {
+    let componentsArr: React.ReactElement[] = [];
+    for(let i = 0; i < foodCategoryList.length; i++) {
+      componentsArr.push(
+        <FoodCategory
+          key={Math.random()}
+          name={foodCategoryList[i].name}
+          imageName={foodCategoryList[i].imageName}
+          isActive={foodCategoryList[i].name === activeCategory ? true : false}
+        />
+      )
+    }
+    return componentsArr;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+    <div>
+      <h1>Place Order</h1>
+      <div className='sidebar'>
+        <div className='foodCategoryWrap'>
+          { renderFoodCategories() }
+        </div>
+      </div>
     </div>
   );
 }
