@@ -1,40 +1,18 @@
-import React from 'react';
-import { useAppSelector } from './utils/hooks';
-import { 
-  foodCategoryListSelect,
-  activeCategorySelect,
-} from './store/reducers/foodCategoryReducer';
-import { FoodCategory } from './features/FoodCategory/FoodCategory';
-import { FoodList } from './features/FoodList/FoodList';
+import React, { useState } from 'react';
+import { NavMenu } from './components/NavMenu/NavMenu';
+import { FoodMenu } from './features/FoodMenu/FoodMenu';
+import { Cart } from './features/modals/Cart';
 
 const App = () => {
-  const foodCategoryList = useAppSelector(foodCategoryListSelect);
-  const activeCategory = useAppSelector(activeCategorySelect);
-  
-  const renderFoodCategories = () => {
-    let componentsArr: React.ReactElement[] = [];
-    for(let i = 0; i < foodCategoryList.length; i++) {
-      componentsArr.push(
-        <FoodCategory
-          key={Math.random()}
-          name={foodCategoryList[i].name}
-          imageName={foodCategoryList[i].imageName}
-          isActive={foodCategoryList[i].name === activeCategory ? true : false}
-        />
-      )
-    }
-    return componentsArr;
-  }
+
+  const [isShowCart, setIsShowCart] = useState<boolean>(false);
 
   return (
     <div>
-      <h1>Place Order</h1>
-      <div className='contentWrap'>
-        <div className='foodCategoryWrap'>
-          { renderFoodCategories() }
-        </div>
-        <FoodList />
-      </div>
+      <NavMenu />
+      <button onClick={() => setIsShowCart(true)}>Cart</button>
+      <FoodMenu />
+      { isShowCart && <Cart onClose={() => setIsShowCart(false)} /> }
     </div>
   );
 }

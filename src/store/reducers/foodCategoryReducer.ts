@@ -10,7 +10,7 @@ export interface foodCategoryState {
 
 const initialState: foodCategoryState = {
   foodCategoryList: foodCategoryList,
-  activeCategory: 'Pizza',
+  activeCategory: 'Burgers',
 };
 
 export const foodCategorySlice = createSlice({

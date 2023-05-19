@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 import { activeCategorySelect } from '../../store/reducers/foodCategoryReducer';
 import { useAppSelector } from '../../utils/hooks';
 import { foodList } from '../../utils/data';
-import { FoodListItem } from "./FoodListItem";
+import { FoodListItem } from './FoodListItem';
 
 export const FoodList = () => {
 

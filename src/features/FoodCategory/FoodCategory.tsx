@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC } from 'react';
 import { useAppDispatch } from '../../utils/hooks';
 import { changeActiveCategory } from '../../store/reducers/foodCategoryReducer'
 
@@ -21,7 +21,7 @@ export const FoodCategory: FC<FoodCategoryType> = ({ name, imageName, isActive }
       className={`foodCategoryItem ${isActive? 'active' : ''}`}
       onClick={handleClick}
     >
-      <img src={`images/${imageName}`} />
+      <img src={`images/${imageName}`} alt='' />
       <span>{name}</span>
     </div>
   )
