@@ -19,8 +19,8 @@ export const cartSlice = createSlice({
     addItemToOrder: (state, action: PayloadAction<OrderItemType>) => {
       state.currentOrder.push(action.payload);
     },
-    changeCartItemQuantity: (state, action: PayloadAction<OrderItemType[]>) => {
-      state.currentOrder = action.payload;
+    changeCartItemQuantity: (state, action: PayloadAction<{index: number; value: number}>) => {
+      state.currentOrder[action.payload.index].quantity = action.payload.value;
     }
   }
 });

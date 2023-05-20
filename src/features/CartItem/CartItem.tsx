@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useAppSelector } from '../../utils/hooks';
+import { useAppSelector, useAppDispatch } from '../../utils/hooks';
 import { cartCurrentOrderSelect, changeCartItemQuantity } from '../../store/reducers/cartReducer';
 import { Counter } from '../Counter/Counter';
 
@@ -12,17 +12,27 @@ type CartItemType = {
 export const CartItem: FC<CartItemType> = ({ name, imageName, quantity}) => {
 
   const currentOrder = useAppSelector(cartCurrentOrderSelect);
+  const dispatch = useAppDispatch();
   
 
-  // const handleCounterDecrement = () => {
-  //   if(itemCount > 1) {
-  //     setItemCount(itemCount - 1)
-  //   } else return;
-  // }
+  const handleCounterDecrement = () => {
+    const orderIndex = currentOrder.findIndex(item => item.name === name);
+    let newQuantity: number = 1;
+    const currentQuantity = currentOrder[orderIndex].quantity;
+    if(currentQuantity > 1 && currentQuantity <= 99) {
+      newQuantity = currentQuantity - 1;
+      dispatch(changeCartItemQuantity({index: orderIndex, value: newQuantity}));
+    }
+  }
 
   const handleCounterIncrement = () => {
-    const index = currentOrder.findIndex(item => item.name === name);
-    
+    const orderIndex = currentOrder.findIndex(item => item.name === name);
+    let newQuantity: number = 1;
+    const currentQuantity = currentOrder[orderIndex].quantity;
+    if(currentQuantity > 0 && currentQuantity < 99) {
+      newQuantity = currentQuantity + 1;
+      dispatch(changeCartItemQuantity({index: orderIndex, value: newQuantity}));
+    }
   }
 
 
@@ -35,7 +45,7 @@ export const CartItem: FC<CartItemType> = ({ name, imageName, quantity}) => {
       <div className='cartItemCounterWrap'>
         <Counter
           itemCount={quantity}
-          handleCounterDecrement={() => console.log('-')}
+          handleCounterDecrement={handleCounterDecrement}
           handleCounterIncrement={handleCounterIncrement}
         />
       </div>
