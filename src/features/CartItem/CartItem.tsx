@@ -1,7 +1,11 @@
 import React, { FC } from 'react';
 import { useAppSelector, useAppDispatch } from '../../utils/hooks';
-import { cartCurrentOrderSelect, changeCartItemQuantity } from '../../store/reducers/cartReducer';
-import { Counter } from '../Counter/Counter';
+import {
+  cartCurrentOrderSelect,
+  changeCartItemQuantity,
+  removeCartItem,
+} from '../../store/reducers/cartReducer';
+import { Counter } from '../../components/Counter/Counter';
 
 type CartItemType = {
   name: string;
@@ -35,10 +39,15 @@ export const CartItem: FC<CartItemType> = ({ name, imageName, quantity}) => {
     }
   }
 
+  const handleRemoveCartItem = () => {
+    const cartItemIndex = currentOrder.findIndex(item => item.name === name);
+    dispatch(removeCartItem(cartItemIndex))
+  }
+
 
   return (
-    <div className="cartItemWrap">
-      <div className="cartItemInfo">
+    <div className='cartItemWrap'>
+      <div className='cartItemInfo'>
         <img src={`images/food-list/${imageName}`} alt='' />
         <p>{name}</p>
       </div>
@@ -49,6 +58,9 @@ export const CartItem: FC<CartItemType> = ({ name, imageName, quantity}) => {
           handleCounterIncrement={handleCounterIncrement}
         />
       </div>
+      <button className='removeCartItemBtn' onClick={handleRemoveCartItem}>
+        <img src='images/trash.png' alt='' />
+      </button>
     </div>
   )
 }

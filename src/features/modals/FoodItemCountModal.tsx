@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { addItemToOrder } from '../../store/reducers/cartReducer';
 import { useAppDispatch } from '../../utils/hooks';
 import { Button } from '../../components/Button/Button';
-import { Counter } from '../Counter/Counter';
+import { Counter } from '../../components/Counter/Counter';
 
 type FoodItemCountModalType = {
   onClose: () => void;
@@ -55,7 +55,7 @@ export const FoodItemCountModal: FC<FoodItemCountModalType> = ({onClose, foodIte
           <Button action={handleAddToCart} text='OK' />
         </div>
         <div className='modalBtnWrap'>
-          <button className='modalCloseBtn' onClick={onClose}>Close</button>
+          <Button type='close' action={onClose} text='Close' />
         </div>
       </div>
     </div>

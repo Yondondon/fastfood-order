@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { useAppSelector } from '../../utils/hooks';
 import { cartCurrentOrderSelect } from '../../store/reducers/cartReducer';
 import { CartItem } from '../CartItem/CartItem';
+import { Button } from '../../components/Button/Button';
 
 type CartType = {
   onClose: () => void;
@@ -34,7 +35,14 @@ export const Cart: FC<CartType> = ({ onClose }) => {
         <div>
           {renderCartList()}
         </div>
-        <button onClick={onClose}>Close</button>
+        { currentOrder.length > 0 && (
+          <div className='cartModalBtnWrap'>
+            <Button action={onClose} text='Confirm' />
+          </div>
+        ) }
+        <div className='cartModalBtnWrap'>
+          <Button type='close' action={onClose} text='Close' />
+        </div>
       </div>
     </div>
   )

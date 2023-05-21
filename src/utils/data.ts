@@ -36,7 +36,7 @@ export const foodList = {
     {
       name: 'Pepperoni',
       imageName: 'pepperoni.png',
-      ingredients: ['BBQ sauce', 'Mozarella', 'Peperoni'],
+      ingredients: ['BBQ sauce', 'Mozarella', 'Pepperoni'],
     },
     {
       name: 'Mushrooms and Tomatoes',
