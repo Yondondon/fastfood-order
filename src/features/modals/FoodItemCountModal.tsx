@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { addItemToOrder } from '../../store/reducers/cartReducer';
+import { addItemToCart } from '../../store/reducers/cartReducer';
 import { useAppDispatch } from '../../utils/hooks';
 import { Button } from '../../components/Button/Button';
 import { Counter } from '../../components/Counter/Counter';
@@ -35,7 +35,7 @@ export const FoodItemCountModal: FC<FoodItemCountModalType> = ({onClose, foodIte
       imageName: foodItem.imageName,
       quantity: itemCount
     }
-    dispatch(addItemToOrder(currentFoodItem));
+    dispatch(addItemToCart(currentFoodItem));
     onClose();
   }
 

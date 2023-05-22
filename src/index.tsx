@@ -8,7 +8,7 @@ import {
 import { store } from './store/store';
 import App from './App';
 import './index.css';
-import { Test } from './Test';
+import { OrdersPage } from './pages/OrdersPage';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -19,8 +19,8 @@ const router = createHashRouter([
     element: <App />,
   },
   {
-    path: 'test',
-    element: <Test />,
+    path: 'orders',
+    element: <OrdersPage />,
   }
 ])
 

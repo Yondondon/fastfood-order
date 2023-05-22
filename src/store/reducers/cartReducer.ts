@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import { OrderItemType } from '../../utils/types';
+import { NewCartItemType } from '../../utils/types';
 
 export interface cartState {
   currentOrderNumber: number;
-  currentOrder: OrderItemType[];
+  currentOrder: NewCartItemType[];
 }
 
 const initialState: cartState = {
@@ -16,7 +16,7 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: { 
-    addItemToOrder: (state, action: PayloadAction<OrderItemType>) => {
+    addItemToCart: (state, action: PayloadAction<NewCartItemType>) => {
       state.currentOrder.push(action.payload);
     },
     changeCartItemQuantity: (state, action: PayloadAction<{index: number; value: number}>) => {
@@ -29,7 +29,7 @@ export const cartSlice = createSlice({
 });
 
 export const {
-  addItemToOrder,
+  addItemToCart,
   changeCartItemQuantity,
   removeCartItem,
 } = cartSlice.actions;

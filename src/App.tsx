@@ -12,7 +12,7 @@ const App = () => {
   const [isShowCart, setIsShowCart] = useState<boolean>(false);
 
   return (
-    <div>
+    <>
       <NavMenu />
       <button className='cartBtn' onClick={() => setIsShowCart(true)}>
         <img src='images/cart.png' alt='' />
@@ -20,7 +20,7 @@ const App = () => {
       </button>
       <FoodMenu />
       { isShowCart && <Cart onClose={() => setIsShowCart(false)} /> }
-    </div>
+    </>
   );
 }
 

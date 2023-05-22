@@ -384,3 +384,59 @@ h1 {
   justify-content: center;
   margin-top: 15px;
 }
+
+.ordersTableWrap {
+  display: flex;
+  justify-content: center;
+  max-width: 750px;
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid #543c52;
+  background-color: #edd2cb;
+}
+
+.ordersTableColumn {
+  width: 50%;
+  border-right: 1px solid #543c52;
+}
+
+.ordersTableColumn:last-child {
+  border: none;
+}
+
+.ordersTableTitle {
+  border-bottom: 1px solid #543c52;
+  font-size: 24px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 15px 10px;
+  text-align: center;
+  background-color: #361d32;
+  color: #f1e8e6;
+}
+
+.ordersTableContent {
+  padding: 15px;
+}
+
+.ordersTableContent ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.ordersTableContent ul:empty {
+  color: #959595;
+  font-style: italic;
+}
+
+.ordersTableContent ul:empty::after {
+  content: 'There are no orders';
+}
+
+.ordersTableContent li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}

@@ -3,8 +3,13 @@ export type foodCategoryItemType = {
   imageName: string;
 }
 
-export type OrderItemType = {
+export type NewCartItemType = {
   name: string;
   imageName: string;
   quantity: number;
+}
+
+export type OrderItemType = {
+  orderNumber: number;
+  status: 'in-progress' | 'ready';
 }
