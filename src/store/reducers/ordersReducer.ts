@@ -7,38 +7,28 @@ export interface ordersState {
 }
 
 const initialState: ordersState = {
-  ordersList: [
-    {
-      orderNumber: 1,
-      status: 'in-progress',
-    },
-    {
-      orderNumber: 2,
-      status: 'in-progress',
-    },
-    {
-      orderNumber: 3,
-      status: 'ready',
-    },
-    {
-      orderNumber: 4,
-      status: 'ready',
-    },
-  ]
+  ordersList: []
 };
 
 export const ordersSlice = createSlice({
   name: 'orders',
   initialState,
   reducers: { 
-    addItemToOrder: (state, action: PayloadAction) => {
-      // state.currentOrder.push(action.payload);
+    addItemToOrdersList: (state, action: PayloadAction<number>) => {
+      state.ordersList.push({
+        orderNumber: action.payload,
+        status: 'in-progress',
+      });
     },
+    swapOrderToReady: (state, action: PayloadAction<number>) => {
+      state.ordersList[action.payload].status = 'ready';
+    }
   }
 });
 
 export const {
-  addItemToOrder,
+  addItemToOrdersList,
+  swapOrderToReady,
 } = ordersSlice.actions;
 
 export const ordersListSelect = (state: RootState) => state.orders.ordersList;

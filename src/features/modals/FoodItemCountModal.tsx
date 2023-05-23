@@ -1,6 +1,10 @@
 import React, { FC, useState } from 'react';
-import { addItemToCart } from '../../store/reducers/cartReducer';
-import { useAppDispatch } from '../../utils/hooks';
+import {
+  addItemToCart,
+  cartCurrentOrderSelect,
+  changeCartItemQuantity,
+} from '../../store/reducers/cartReducer';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import { Button } from '../../components/Button/Button';
 import { Counter } from '../../components/Counter/Counter';
 
@@ -16,6 +20,7 @@ export const FoodItemCountModal: FC<FoodItemCountModalType> = ({onClose, foodIte
 
   const [itemCount, setItemCount] = useState<number>(1);
   const dispatch = useAppDispatch();
+  const currentOrder = useAppSelector(cartCurrentOrderSelect);
 
   const handleCounterDecrement = () => {
     if(itemCount > 1) {
@@ -29,13 +34,33 @@ export const FoodItemCountModal: FC<FoodItemCountModalType> = ({onClose, foodIte
     } else return;
   }
 
+  const isInCart = () => {
+    let result = false;
+    for(let i = 0; i < currentOrder.length; i++) {
+      if(currentOrder[i].name === foodItem.name) {
+        result = true;
+        break;
+      }
+    }
+    return result;
+  }
+
   const handleAddToCart = () => {
     let currentFoodItem = {
       name: foodItem.name,
       imageName: foodItem.imageName,
       quantity: itemCount
     }
-    dispatch(addItemToCart(currentFoodItem));
+    if(isInCart()) {
+      const orderIndex = currentOrder.findIndex(item => item.name === foodItem.name);
+      let newQuantity: number = 1;
+      const currentQuantity = currentOrder[orderIndex].quantity;
+      newQuantity = currentQuantity + itemCount;
+      if(newQuantity >= 99) newQuantity = 99; //we don't like numbers more than 99 :P
+      dispatch(changeCartItemQuantity({index: orderIndex, value: newQuantity}));
+    } else {
+      dispatch(addItemToCart(currentFoodItem));
+    }
     onClose();
   }
 

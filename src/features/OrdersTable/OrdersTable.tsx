@@ -26,7 +26,7 @@ export const OrdersTable = () => {
   return (
     <div className='ordersTableWrap'>
       <div className='ordersTableColumn'>
-        <div className='ordersTableTitle'>In Progress</div>
+        <div className='ordersTableTitle'>In Process</div>
         <div className='ordersTableContent'>
           <ul>
             {renderOrdersList('in-progress')}

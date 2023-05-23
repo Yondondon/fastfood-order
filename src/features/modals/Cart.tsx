@@ -1,6 +1,12 @@
-import React, { FC } from 'react';
-import { useAppSelector } from '../../utils/hooks';
-import { cartCurrentOrderSelect } from '../../store/reducers/cartReducer';
+import React, { FC, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
+import { 
+  cartCurrentOrderSelect,
+  cartCurrentOrderNumberSelect,
+  resetCurrentOrder,
+  changeCurrentOrderNumber,
+} from '../../store/reducers/cartReducer';
+import { addItemToOrdersList } from '../../store/reducers/ordersReducer';
 import { CartItem } from '../CartItem/CartItem';
 import { Button } from '../../components/Button/Button';
 
@@ -10,7 +16,11 @@ type CartType = {
 
 export const Cart: FC<CartType> = ({ onClose }) => {
 
+  const dispatch = useAppDispatch();
   const currentOrder = useAppSelector(cartCurrentOrderSelect);
+  const currentOrderNumber = useAppSelector(cartCurrentOrderNumberSelect);
+
+  const [isShowConfirmation, setIsShowConfirmation] = useState<boolean>(false);
 
 
   const renderCartList = () => {
@@ -28,21 +38,41 @@ export const Cart: FC<CartType> = ({ onClose }) => {
     return cartList;
   }
 
+  const handleConfirmOrder = () => {
+    dispatch(addItemToOrdersList(currentOrderNumber))
+    dispatch(resetCurrentOrder())
+    dispatch(changeCurrentOrderNumber())
+    setIsShowConfirmation(true)
+  }  
+
   return (
     <div className='cartWrap'>
       <div className='cartWindow'>
         <h2 className='cartTitle'>Cart:</h2>
-        <div>
+        <div className='cartItemsListWrap'>
           {renderCartList()}
         </div>
+        { isShowConfirmation && (
+            <div className='cartConfirmationMsgWrap'>
+              <img src='images/verified.png' alt='' />
+              <p>Yay! Your order #{currentOrderNumber - 1} is processing!</p>
+              <div className='cartModalBtnWrap'>
+                <Button action={onClose} text='OK' />
+              </div>
+            </div>
+          )
+        }
         { currentOrder.length > 0 && (
           <div className='cartModalBtnWrap'>
-            <Button action={onClose} text='Confirm' />
+            <Button action={handleConfirmOrder} text='Confirm' />
           </div>
         ) }
-        <div className='cartModalBtnWrap'>
-          <Button type='close' action={onClose} text='Close' />
-        </div>
+        { !isShowConfirmation && (
+            <div className='cartModalBtnWrap'>
+              <Button type='close' action={onClose} text='Close' />
+            </div>
+          )
+        }
       </div>
     </div>
   )

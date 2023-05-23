@@ -25,6 +25,12 @@ export const cartSlice = createSlice({
     removeCartItem: (state, action: PayloadAction<number>) => {
       state.currentOrder.splice(action.payload, 1);
     },
+    resetCurrentOrder: (state) => {
+      state.currentOrder = [];
+    },
+    changeCurrentOrderNumber: (state) => {
+      state.currentOrderNumber = state.currentOrderNumber + 1;
+    },
   }
 });
 
@@ -32,8 +38,11 @@ export const {
   addItemToCart,
   changeCartItemQuantity,
   removeCartItem,
+  resetCurrentOrder,
+  changeCurrentOrderNumber,
 } = cartSlice.actions;
 
 export const cartCurrentOrderSelect = (state: RootState) => state.cart.currentOrder;
+export const cartCurrentOrderNumberSelect = (state: RootState) => state.cart.currentOrderNumber;
 
 export default cartSlice.reducer;

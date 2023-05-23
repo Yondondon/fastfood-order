@@ -1,17 +1,26 @@
 import React, { FC } from 'react';
 import { OrderItemType } from '../../utils/types';
-import { Timer } from '../../components/Timer/Timer';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
+import { ordersListSelect, swapOrderToReady } from '../../store/reducers/ordersReducer';
+import { Timer } from './components/Timer';
 
 
 export const OrderItem: FC<OrderItemType> = ({ orderNumber, status }) => {
 
-  const time = new Date();
-  time.setSeconds(time.getSeconds() + 10);
+  const dispatch = useAppDispatch();
+  const orderList = useAppSelector(ordersListSelect);
+
+  const index = orderList.findIndex(item => item.orderNumber === orderNumber)
 
   return (
     <li>
       <div className='orderNumber'>{orderNumber}</div>
-      { status === 'in-progress' && <div className='orderTimer'><Timer expiryTimestamp={time} /></div> }
+      { status === 'in-progress' && (
+          <Timer
+            onExpire={() => dispatch(swapOrderToReady(index))}
+          />
+        )
+      }
     </li>
   )
 }
