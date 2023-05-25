@@ -1,4 +1,4 @@
-React + TypeScript + Redux
+React + TypeScript + Redux + React Router
 
 [Live Preview](https://yondondon.github.io/fastfood-order)
 
