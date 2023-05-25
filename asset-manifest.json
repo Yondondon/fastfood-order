@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/fastfood-oerder/static/css/main.114f9855.css",
-    "main.js": "/fastfood-oerder/static/js/main.20584ea8.js",
+    "main.js": "/fastfood-oerder/static/js/main.e72de173.js",
     "index.html": "/fastfood-oerder/index.html",
     "main.114f9855.css.map": "/fastfood-oerder/static/css/main.114f9855.css.map",
-    "main.20584ea8.js.map": "/fastfood-oerder/static/js/main.20584ea8.js.map"
+    "main.e72de173.js.map": "/fastfood-oerder/static/js/main.e72de173.js.map"
   },
   "entrypoints": [
     "static/css/main.114f9855.css",
-    "static/js/main.20584ea8.js"
+    "static/js/main.e72de173.js"
   ]
 }
