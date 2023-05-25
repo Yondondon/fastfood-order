@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useAppSelector } from '../../utils/hooks';
 import { 
   foodCategoryListSelect,
@@ -11,8 +11,8 @@ export const FoodMenu = () => {
 
   const foodCategoryList = useAppSelector(foodCategoryListSelect);
   const activeCategory = useAppSelector(activeCategorySelect);
-
   const [showCategoriesMenu, isShowCategoriesMenu] = useState<boolean>(false)
+  const ref = useRef(null) as any;
   
   const renderFoodCategories = () => {
     let componentsArr: React.ReactElement[] = [];
@@ -29,12 +29,24 @@ export const FoodMenu = () => {
     return componentsArr;
   }
 
+  useEffect(() => {
+    const handleClickOutside = (e: any) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        isShowCategoriesMenu(false);
+      }
+    };
+    document.addEventListener('click', handleClickOutside, true);
+    return () => {
+      document.removeEventListener('click', handleClickOutside, true);
+    };
+  }, [showCategoriesMenu])
+
 
   return (
     <>
       <h1>Menu</h1>
       <div className='contentWrap'>
-        <div className={`foodCategoryWrap ${showCategoriesMenu ? 'active' : ''}`}>
+        <div ref={ref} className={`foodCategoryWrap ${showCategoriesMenu ? 'active' : ''}`}>
           { renderFoodCategories() }
           <button className='categoryMenuBtn' onClick={() => isShowCategoriesMenu(!showCategoriesMenu)}>
             { showCategoriesMenu ? (

@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
-import { Button } from '../../components/Button/Button';
-import { FoodItemCountModal } from '../modals/FoodItemCountModal';
+import { Button } from '../../../components/Button/Button';
+import { FoodItemCountModal } from '../../modals/FoodItemCountModal';
 
 type FoodListItemType = {
   name: string;

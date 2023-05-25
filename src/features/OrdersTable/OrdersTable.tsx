@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAppSelector } from '../../utils/hooks';
 import { ordersListSelect } from '../../store/reducers/ordersReducer';
-import { OrderItem } from './OrderItem';
+import { OrderItem } from './components/OrderItem';
 
 
 export const OrdersTable = () => {
