@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAppSelector } from '../../utils/hooks';
 import { 
   foodCategoryListSelect,
@@ -11,6 +11,8 @@ export const FoodMenu = () => {
 
   const foodCategoryList = useAppSelector(foodCategoryListSelect);
   const activeCategory = useAppSelector(activeCategorySelect);
+
+  const [showCategoriesMenu, isShowCategoriesMenu] = useState<boolean>(false)
   
   const renderFoodCategories = () => {
     let componentsArr: React.ReactElement[] = [];
@@ -27,12 +29,20 @@ export const FoodMenu = () => {
     return componentsArr;
   }
 
+
   return (
     <>
       <h1>Menu</h1>
       <div className='contentWrap'>
-        <div className='foodCategoryWrap'>
+        <div className={`foodCategoryWrap ${showCategoriesMenu ? 'active' : ''}`}>
           { renderFoodCategories() }
+          <button className='categoryMenuBtn' onClick={() => isShowCategoriesMenu(!showCategoriesMenu)}>
+            { showCategoriesMenu ? (
+              <img src='images/close.png' alt='' />
+            ) : (
+              <img src='images/menu.png' alt='' />
+            )}
+          </button>
         </div>
         <FoodList />
       </div>

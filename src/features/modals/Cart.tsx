@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import { 
   cartCurrentOrderSelect,
@@ -21,6 +21,7 @@ export const Cart: FC<CartType> = ({ onClose }) => {
   const currentOrderNumber = useAppSelector(cartCurrentOrderNumberSelect);
 
   const [isShowConfirmation, setIsShowConfirmation] = useState<boolean>(false);
+  const [isCartEmpty, setIsCartEmpty] = useState<boolean>(true);
 
 
   const renderCartList = () => {
@@ -43,13 +44,22 @@ export const Cart: FC<CartType> = ({ onClose }) => {
     dispatch(resetCurrentOrder())
     dispatch(changeCurrentOrderNumber())
     setIsShowConfirmation(true)
-  }  
+  }
+
+  useEffect(() => {
+    if(currentOrder.length === 0) {
+      setIsCartEmpty(true)
+    } else {
+      setIsCartEmpty(false)
+    }
+  }, [currentOrder])
 
   return (
     <div className='cartWrap'>
       <div className='cartWindow'>
         <h2 className='cartTitle'>Cart:</h2>
         <div className='cartItemsListWrap'>
+          { isCartEmpty && !isShowConfirmation && <div className='emptyCartMsg'>The cart is empty</div> }
           {renderCartList()}
         </div>
         { isShowConfirmation && (

@@ -8,7 +8,11 @@ export const OrdersPage = () => {
 
   return (
     <>
-      <NavMenu />
+      <header className='mainHeader'>
+        <div className='navMenuWrap'>
+          <NavMenu />
+        </div>
+      </header>
       <h1>Orders</h1>
       <OrdersTable />
     </>
